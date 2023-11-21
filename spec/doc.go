@@ -12,4 +12,4 @@
 // Package spec contains the Go representation
 // of an Regolithe Specification Set as well as
 // various functions to handle reading and writing them.
-package spec // import "go.aporeto.io/regolithe/spec"
+package spec // import "go.acuvity.ai/regolithe/spec"

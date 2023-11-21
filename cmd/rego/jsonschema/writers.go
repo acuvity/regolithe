@@ -19,7 +19,7 @@ import (
 	"path"
 	"text/template"
 
-	"go.aporeto.io/regolithe/spec"
+	"go.acuvity.ai/regolithe/spec"
 )
 
 var functions = template.FuncMap{

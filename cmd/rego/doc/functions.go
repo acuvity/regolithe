@@ -19,7 +19,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"go.aporeto.io/regolithe/spec"
+	"go.acuvity.ai/regolithe/spec"
 )
 
 const rootSpecRestName = "root"

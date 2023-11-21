@@ -12,7 +12,7 @@
 package jsonschema
 
 import (
-	"go.aporeto.io/regolithe/spec"
+	"go.acuvity.ai/regolithe/spec"
 )
 
 // Generate generates the json schema

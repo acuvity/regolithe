@@ -19,8 +19,8 @@ import (
 	"strings"
 	"text/template"
 
-	"go.aporeto.io/regolithe/cmd/rego/templates"
-	"go.aporeto.io/regolithe/spec"
+	"go.acuvity.ai/regolithe/cmd/rego/templates"
+	"go.acuvity.ai/regolithe/spec"
 )
 
 func convertType(t spec.AttributeType) string {

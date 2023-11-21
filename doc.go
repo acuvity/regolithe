@@ -11,4 +11,4 @@
 
 // Package regolithe contains a base cobra.Command you can
 // use to write generator tools.
-package regolithe // import "go.aporeto.io/regolithe"
+package regolithe // import "go.acuvity.ai/regolithe"

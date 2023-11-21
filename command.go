@@ -18,7 +18,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"go.aporeto.io/regolithe/spec"
+	"go.acuvity.ai/regolithe/spec"
 )
 
 // NewCommand generates a new CLI for regolith

@@ -1,4 +1,4 @@
-module go.aporeto.io/regolithe
+module go.acuvity.ai/regolithe
 
 go 1.18
 

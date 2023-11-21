@@ -18,10 +18,10 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"go.aporeto.io/regolithe/cmd/rego/doc"
-	"go.aporeto.io/regolithe/cmd/rego/jsonschema"
-	"go.aporeto.io/regolithe/cmd/rego/specset"
-	"go.aporeto.io/regolithe/spec"
+	"go.acuvity.ai/regolithe/cmd/rego/doc"
+	"go.acuvity.ai/regolithe/cmd/rego/jsonschema"
+	"go.acuvity.ai/regolithe/cmd/rego/specset"
+	"go.acuvity.ai/regolithe/spec"
 )
 
 const (
