@@ -28,6 +28,7 @@ var functions = template.FuncMap{
 	"jsonStringify":           jsonStringify,
 	"isNil":                   isNil,
 	"stripFirstLevelBrackets": stripFirstLevelBrackets,
+	"escapeNewLines":          escapeNewLines,
 }
 
 func writeGlobalResources(set spec.SpecificationSet, outFolder string, publicMode bool) error {

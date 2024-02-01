@@ -20,6 +20,7 @@
     {{ $latestVersion := .Spec.LatestAttributesVersion -}}
     "title": "{{ .Spec.Model.EntityName }}",
     "type": "object",
+    "description": "{{ escapeNewLines .Spec.Model.Description }}",
     "properties": {
     {{- range $idxAttr, $attr := .Spec.ExposedAttributes $latestVersion -}}
     {{- $attrName := $attr.ConvertedName }}
@@ -28,11 +29,14 @@
     {{- end }}
     {{- if $idxAttr -}},{{- end }}
     "{{ $attrName }}": {
+    "title": "{{ $attrName }}",
     "anyOf": [
         {{- if not .Required }}
         { "type": "null" },
         {{- end }}
         {
+        "title": "{{ $attrName }}",
+        "description": "{{ escapeNewLines $attr.Description }}",
         {{- /* ==== Type ==== */ -}}
         {{- $type := convertType $attr.Type -}}
         {{ if $attr.AllowedChoices }}

@@ -73,6 +73,10 @@ func jsonStringify(target any) string {
 	return string(data)
 }
 
+func escapeNewLines(str string) string {
+	return strings.ReplaceAll(str, "\n", ` `)
+}
+
 func stripFirstLevelBrackets(str string) string {
 	return strings.TrimSuffix(strings.TrimPrefix(str, "{"), "}")
 }
