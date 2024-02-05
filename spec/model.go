@@ -22,6 +22,7 @@ type Model struct {
 	RestName      string          `yaml:"rest_name,omitempty"       json:"rest_name,omitempty"`
 	ResourceName  string          `yaml:"resource_name,omitempty"   json:"resource_name,omitempty"`
 	EntityName    string          `yaml:"entity_name,omitempty"     json:"entity_name,omitempty"`
+	FriendlyName  string          `yaml:"friendly_name,omitempty"   json:"friendly_name,omitempty"`
 	Package       string          `yaml:"package,omitempty"         json:"package,omitempty"`
 	Group         string          `yaml:"group,omitempty"           json:"group,omitempty"`
 	Description   string          `yaml:"description,omitempty"     json:"description,omitempty"`
@@ -37,7 +38,8 @@ type Model struct {
 	Validations   []string        `yaml:"validations,omitempty"     json:"validations,omitempty"`
 	Extensions    map[string]any  `yaml:"extensions,omitempty"      json:"extensions,omitempty"`
 
-	EntityNamePlural string `yaml:"-" json:"-"`
+	EntityNamePlural   string `yaml:"-" json:"-"`
+	FriendlyNamePlural string `yaml:"-" json:"-"`
 }
 
 // Validate validates the Model.

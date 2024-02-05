@@ -24,6 +24,7 @@ import (
 
 var functions = template.FuncMap{
 	"convertType":             convertType,
+	"toJSType":                toJSType,
 	"convertRegexp":           convertRegexp,
 	"jsonStringify":           jsonStringify,
 	"isNil":                   isNil,
@@ -60,7 +61,7 @@ func writeGlobalResources(set spec.SpecificationSet, outFolder string, publicMod
 
 	data := map[string]any{}
 	if err := json.Unmarshal(buf.Bytes(), &data); err != nil {
-		return fmt.Errorf("unable to unmarshal model code: %s", err)
+		return fmt.Errorf("unable to unmarshal global resource code: %s", err)
 	}
 
 	out, err := json.MarshalIndent(data, "", "  ")
@@ -100,7 +101,7 @@ func writeGlobalResourceLists(set spec.SpecificationSet, outFolder string, publi
 
 	data := map[string]any{}
 	if err := json.Unmarshal(buf.Bytes(), &data); err != nil {
-		return fmt.Errorf("unable to unmarshal model code: %s", err)
+		return fmt.Errorf("unable to unmarshal global resource lists code: %s", err)
 	}
 
 	out, err := json.MarshalIndent(data, "", "  ")

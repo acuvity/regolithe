@@ -148,6 +148,10 @@
                                 "description": "The name of the attribute",
                                 "type": "string"
                             },
+                            "friendly_name": {
+                                "description": "The friendly name of the attribute",
+                                "type": "string"
+                            },
                             "omit_empty": {
                                 "description": "If true, the attribute can be dropped if empty or null",
                                 "type": "boolean"
