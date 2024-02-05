@@ -1,24 +1,8 @@
-{{- define "parse-type" -}}
-{{- if eq . "time" -}}
-"type": "string",
-"format": "date-time"
-{{- else if eq . "string" -}}
-"type": "string"
-{{- else if eq . "boolean" -}}
-"type": "boolean"
-{{- else if eq . "integer" -}}
-"type": "integer"
-{{- else if eq . "float" -}}
-"type": "number"
-{{- else if eq . "object" -}}
-{{- else -}}
-"$ref": "{{ . }}.json"
-{{- end -}}
-{{- end -}}
-
 {
     {{ $latestVersion := .Spec.LatestAttributesVersion -}}
     "title": "{{ .Spec.Model.EntityName }}",
+    "$friendlyName": "{{ .Spec.Model.FriendlyName }}",
+    "$friendlyNamePlural": "{{ .Spec.Model.FriendlyNamePlural }}",
     "type": "object",
     "description": "{{ escapeNewLines .Spec.Model.Description }}",
     "properties": {
@@ -30,65 +14,58 @@
     {{- if $idxAttr -}},{{- end }}
     "{{ $attrName }}": {
     "title": "{{ $attrName }}",
-    "anyOf": [
-        {{- if not .Required }}
-        { "type": "null" },
-        {{- end }}
-        {
-        "title": "{{ $attrName }}",
-        "description": "{{ escapeNewLines $attr.Description }}",
-        {{- /* ==== Type ==== */ -}}
-        {{- $type := convertType $attr.Type -}}
-        {{ if $attr.AllowedChoices }}
-        "enum": [
-            {{- range $idxChoice, $choice := $attr.AllowedChoices -}}
-            {{- if $idxChoice -}}, {{ end -}}
-            "{{ $choice }}"
-            {{- end -}}
-        ]
-        {{- else if eq $type "$external" }}
-            {{ stripFirstLevelBrackets $attr.ConvertedType }}
-        {{- else if eq $type "$list" }}
-        "type": "array"
-        {{- if $attr.SubType }},
-        "items": {
-            {{ template "parse-type" $attr.SubType }}
-        }
-        {{- end }}
-        {{- else if eq $type "$map" }}
-        "type": "object"
-        {{- if $attr.SubType -}},
-        "additionalProperties": {
-            {{ template "parse-type" $attr.SubType }}
-        }
-        {{- else -}},
-        "additionalProperties": true
-        {{- end }}
-        {{- else if eq $type "$ref" }}
-        {{ template "parse-type" $attr.SubType }}
-        {{- else }}
-        {{ template "parse-type" $type }}
-        {{- end }}
-
-        {{- /* ==== Other properties ==== */ -}}
-        {{- if $attr.AllowedChars -}},
-        "pattern": "{{ convertRegexp $attr.AllowedChars $attr.Required }}"
+    "$friendlyName": "{{ $attr.FriendlyName }}",
+    "description": "{{ escapeNewLines $attr.Description }}",
+    {{- /* ==== Type ==== */ -}}
+    {{- $type := convertType $attr.Type -}}
+    {{ if $attr.AllowedChoices }}
+    "enum": [
+        {{- range $idxChoice, $choice := $attr.AllowedChoices -}}
+        {{- if $idxChoice -}}, {{ end -}}
+        "{{ $choice }}"
         {{- end -}}
-        {{- if $attr.MaxLength -}},
-        "maxLength": {{ $attr.MaxLength }}
-        {{- end -}}
-        {{- if $attr.MinLength -}},
-        "minLength": {{ $attr.MinLength }}
-        {{- end -}}
-        {{- if $attr.MaxValue -}},
-        "maximum": {{ $attr.MaxValue }}
-        {{- end -}}
-        {{- if $attr.MinValue -}},
-        "minimum": {{ $attr.MinValue }}
-        {{- end -}}
-        {{ "" }}
-        }
     ]
+    {{- else if eq $type "$external" }}
+        {{ stripFirstLevelBrackets $attr.ConvertedType }}
+    {{- else if eq $type "$list" }}
+    "type": "array"
+    {{- if $attr.SubType }},
+    "items": {
+        {{ toJSType $attr.SubType .Required }}
+    }
+    {{- end }}
+    {{- else if eq $type "$map" }}
+    "type": "object"
+    {{- if $attr.SubType -}},
+    "additionalProperties": {
+        {{ toJSType $attr.SubType .Required }}
+    }
+    {{- else -}},
+    "additionalProperties": true
+    {{- end }}
+    {{- else if eq $type "$ref" }}
+    {{ toJSType $attr.SubType .Required }}
+    {{- else }}
+    {{ toJSType $type .Required }}
+    {{- end }}
+
+    {{- /* ==== Other properties ==== */ -}}
+    {{- if $attr.AllowedChars -}},
+    "pattern": "{{ convertRegexp $attr.AllowedChars $attr.Required }}"
+    {{- end -}}
+    {{- if $attr.MaxLength -}},
+    "maxLength": {{ $attr.MaxLength }}
+    {{- end -}}
+    {{- if $attr.MinLength -}},
+    "minLength": {{ $attr.MinLength }}
+    {{- end -}}
+    {{- if $attr.MaxValue -}},
+    "maximum": {{ $attr.MaxValue }}
+    {{- end -}}
+    {{- if $attr.MinValue -}},
+    "minimum": {{ $attr.MinValue }}
+    {{- end -}}
+    {{ "" }}
 
     {{- /* ==== Metadata: Not a JSON schema keyword but kept for information  ==== */ -}}
     {{- if $attr.Required -}},

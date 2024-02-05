@@ -50,6 +50,53 @@ func convertType(t spec.AttributeType) string {
 	return "UNRECOGNIZED_TYPE/" + string(t)
 }
 
+func toJSType(stringType string, required bool) string {
+	switch stringType {
+	case "time":
+		if !required {
+			return `"type": ["string", "null"]`
+		}
+		return `"type": "string"`
+
+	case "date-time":
+
+		if !required {
+			return `"type": ["string", "null"], "format": "date-time"`
+		}
+		return `"type": "string", "format": "date-time"`
+
+	case "string":
+		if !required {
+			return `"type": ["string", "null"]`
+		}
+		return `"type": "string"`
+
+	case "boolean":
+		if !required {
+			return `"type": ["boolean", "null"]`
+		}
+		return `"type": "boolean"`
+
+	case "integer":
+		if !required {
+			return `"type": ["integer", "null"]`
+		}
+		return `"type": "integer"`
+
+	case "float":
+		if !required {
+			return `"type": ["number", "null"]`
+		}
+		return `"type": "number"`
+
+	case "object":
+		return ""
+
+	default:
+		return fmt.Sprintf(`"$ref": "%s.json"`, stringType)
+	}
+}
+
 func convertRegexp(str string, required bool) string {
 
 	escaped := strings.Replace(strings.Replace(str, `\`, `\\`, -1), `"`, `\"`, -1)

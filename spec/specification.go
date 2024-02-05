@@ -23,6 +23,8 @@ import (
 	"github.com/mitchellh/copystructure"
 	wordwrap "github.com/mitchellh/go-wordwrap"
 	"github.com/xeipuuv/gojsonschema"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -69,7 +71,6 @@ func LoadSpecification(specPath string, validate bool) (Specification, error) {
 
 	spec := &specification{}
 	spec.path = specPath
-
 	if err = spec.Read(file, validate); err != nil {
 		return nil, err
 	}
@@ -134,7 +135,12 @@ func (s *specification) Read(reader io.Reader, validate bool) (err error) {
 	}
 
 	if s.RawModel != nil {
+		if s.RawModel.FriendlyName == "" {
+			s.RawModel.FriendlyName = cases.Title(language.Und, cases.NoLower).String(s.RawModel.EntityName)
+		}
+
 		s.RawModel.EntityNamePlural = Pluralize(s.RawModel.EntityName)
+		s.RawModel.FriendlyNamePlural = Pluralize(s.RawModel.FriendlyName)
 	}
 
 	if validate {

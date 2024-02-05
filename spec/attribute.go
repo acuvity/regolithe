@@ -13,6 +13,9 @@ package spec
 
 import (
 	"fmt"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // AttributeType represents the various type for an attribute.
@@ -41,6 +44,7 @@ type Attribute struct {
 	// The YAML will be dumped respecting this order.
 
 	Name                string         `yaml:"name,omitempty"                   json:"name,omitempty"`
+	FriendlyName        string         `yaml:"friendly_name,omitempty"          json:"friendly_name,omitempty"`
 	ExposedName         string         `yaml:"exposed_name,omitempty"           json:"exposed_name,omitempty"`
 	Description         string         `yaml:"description,omitempty"            json:"description,omitempty"`
 	Type                AttributeType  `yaml:"type,omitempty"                   json:"type,omitempty"`
@@ -89,6 +93,10 @@ type Attribute struct {
 func (a *Attribute) Validate() []error {
 
 	var errs []error
+
+	if a.FriendlyName == "" {
+		a.FriendlyName = cases.Title(language.Und, cases.NoLower).String(a.Name)
+	}
 
 	if a.Required && a.DefaultValue == nil && a.ExampleValue == nil {
 		errs = append(errs, fmt.Errorf("%s.spec: '%s' is required but has no default_value or example_value", a.linkedSpecification.Model().RestName, a.Name))

@@ -83,6 +83,10 @@
                     "description": "Camel-cased version of the rest_name.",
                     "type": "string"
                 },
+                "friendly_name": {
+                    "description": "Friendly readable version of the rest_name.",
+                    "type": "string"
+                },
                 "extends": {
                     "description": "List of base specification this specification extends on.",
                     "type": "array",
@@ -334,6 +338,10 @@
                             },
                             "name": {
                                 "description": "The name of the attribute",
+                                "type": "string"
+                            },
+                            "friendly_name": {
+                                "description": "The friendly name of the attribute",
                                 "type": "string"
                             },
                             "omit_empty": {
