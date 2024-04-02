@@ -47,10 +47,10 @@ func main() {
 		Short:         "Reads a specification from stdin and prints it formatted on std out.",
 		SilenceErrors: true,
 		SilenceUsage:  true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PreRunE: func(cmd *cobra.Command, _ []string) error {
 			return viper.BindPFlags(cmd.Flags())
 		},
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, _ []string) error {
 
 			switch viper.Get("mode") {
 			case "spec":
@@ -108,10 +108,10 @@ func main() {
 		Short:         "Generate a documentation for the given specification set",
 		SilenceErrors: true,
 		SilenceUsage:  true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PreRunE: func(cmd *cobra.Command, _ []string) error {
 			return viper.BindPFlags(cmd.Flags())
 		},
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, _ []string) error {
 
 			s, err := spec.LoadSpecificationSet(
 				viper.GetString("dir"),
@@ -138,10 +138,10 @@ func main() {
 		Short:         "Generate a json schema out of a specification set",
 		SilenceErrors: true,
 		SilenceUsage:  true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PreRunE: func(cmd *cobra.Command, _ []string) error {
 			return viper.BindPFlags(cmd.Flags())
 		},
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, _ []string) error {
 
 			s, err := spec.LoadSpecificationSet(
 				viper.GetString("dir"),
@@ -165,10 +165,10 @@ func main() {
 		Short:         "Generate a new set of specification",
 		SilenceErrors: true,
 		SilenceUsage:  true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PreRunE: func(cmd *cobra.Command, _ []string) error {
 			return viper.BindPFlags(cmd.Flags())
 		},
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 
 			if len(args) != 1 {
 				return fmt.Errorf("usage: init <dest>")

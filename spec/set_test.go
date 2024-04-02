@@ -27,7 +27,7 @@ func TestSpec_LoadSpecificationDir(t *testing.T) {
 			func(n string) string {
 				return strings.ToUpper(n)
 			},
-			func(typ AttributeType, subtype string) (string, string) {
+			func(typ AttributeType, _ string) (string, string) {
 				if typ == AttributeTypeString {
 					return "String", ""
 				}
