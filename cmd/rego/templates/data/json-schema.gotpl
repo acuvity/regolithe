@@ -77,6 +77,9 @@
     {{- if $attr.CreationOnly -}},
     "$creationOnly": true
     {{- end -}}
+    {{- if $attr.Secret -}},
+    "$secret": true
+    {{- end -}}
     {{- if not (isNil $attr.DefaultValue) -}},
     "$defaultValue": {{ $attr.DefaultValue | jsonStringify }}
     {{- end -}}
