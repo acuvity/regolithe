@@ -12,7 +12,6 @@
 package jsonschema
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"path"
@@ -111,7 +110,7 @@ func isNil(target any) bool {
 }
 
 func jsonStringify(target any) string {
-	data, err := json.Marshal(target)
+	data, err := spec.JSONMarshal(target)
 	if err != nil {
 		fmt.Println(err.Error())
 		return ""

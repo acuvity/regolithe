@@ -13,7 +13,6 @@ package doc
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"sort"
 	"strings"
@@ -340,7 +339,7 @@ func makeDefaultValue(attr *spec.Attribute) string {
 		return ""
 	}
 
-	dv, err := json.MarshalIndent(attr.DefaultValue, "", "  ")
+	dv, err := spec.JSONMarshalIndent(attr.DefaultValue, "", "  ")
 	if err != nil {
 		panic(err)
 	}
@@ -381,7 +380,7 @@ func makeExample(s spec.Specification, version string) string {
 		}
 	}
 
-	d, err := json.MarshalIndent(data, "", "  ")
+	d, err := spec.JSONMarshalIndent(data, "", "  ")
 	if err != nil {
 		panic(err)
 	}

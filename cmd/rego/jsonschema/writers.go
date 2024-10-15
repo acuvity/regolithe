@@ -64,7 +64,7 @@ func writeGlobalResources(set spec.SpecificationSet, outFolder string, publicMod
 		return fmt.Errorf("unable to unmarshal global resource code: %s", err)
 	}
 
-	out, err := json.MarshalIndent(data, "", "  ")
+	out, err := spec.JSONMarshalIndent(data, "", "  ")
 	if err != nil {
 		return fmt.Errorf("unable to marshal model code: %s", err)
 	}
@@ -104,7 +104,7 @@ func writeGlobalResourceLists(set spec.SpecificationSet, outFolder string, publi
 		return fmt.Errorf("unable to unmarshal global resource lists code: %s", err)
 	}
 
-	out, err := json.MarshalIndent(data, "", "  ")
+	out, err := spec.JSONMarshalIndent(data, "", "  ")
 	if err != nil {
 		return fmt.Errorf("unable to marshal model code: %s", err)
 	}
@@ -149,7 +149,7 @@ func writeModel(set spec.SpecificationSet, outFolder string, publicMode bool) er
 			return fmt.Errorf("unable to unmarshal model code: %s", err)
 		}
 
-		out, err := json.MarshalIndent(data, "", "  ")
+		out, err := spec.JSONMarshalIndent(data, "", "  ")
 		if err != nil {
 			return fmt.Errorf("unable to marshal model code: %s", err)
 		}
