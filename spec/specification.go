@@ -126,6 +126,42 @@ func (s *specification) Read(reader io.Reader, validate bool) (err error) {
 		}
 	}
 
+	for _, rel := range s.RawRelations {
+		if rel.Extensions != nil {
+			for k, v := range rel.Extensions {
+				rel.Extensions[k] = massageYAML(v)
+			}
+		}
+		if rel.Get != nil {
+			if rel.Get.Extensions != nil {
+				for k, v := range rel.Get.Extensions {
+					rel.Get.Extensions[k] = massageYAML(v)
+				}
+			}
+		}
+		if rel.Create != nil {
+			if rel.Create.Extensions != nil {
+				for k, v := range rel.Create.Extensions {
+					rel.Create.Extensions[k] = massageYAML(v)
+				}
+			}
+		}
+		if rel.Update != nil {
+			if rel.Update.Extensions != nil {
+				for k, v := range rel.Update.Extensions {
+					rel.Update.Extensions[k] = massageYAML(v)
+				}
+			}
+		}
+		if rel.Delete != nil {
+			if rel.Delete.Extensions != nil {
+				for k, v := range rel.Delete.Extensions {
+					rel.Delete.Extensions[k] = massageYAML(v)
+				}
+			}
+		}
+	}
+
 	if err = s.buildAttributesMapping(); err != nil {
 		return fmt.Errorf("unable to build attributes mapping: %s", err)
 	}
@@ -343,7 +379,13 @@ func (s *specification) Validate() []error {
 
 	res, err := gojsonschema.Validate(schemaLoader, specLoader)
 	if err != nil {
-		return []error{fmt.Errorf("unable to validate specification: %s", err)}
+		name := "unknown"
+		if s.RawModel != nil {
+			name = s.RawModel.RestName + ".spec"
+		} else if s.path != "" {
+			name = s.path
+		}
+		return []error{fmt.Errorf("unable to validate specification '%s': %s", name, err)}
 	}
 
 	var errs []error

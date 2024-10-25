@@ -17,11 +17,12 @@ type Relation struct {
 	// NOTE: Order of attributes matters!
 	// The YAML will be dumped respecting this order.
 
-	RestName string          `yaml:"rest_name,omitempty"    json:"rest_name,omitempty"`
-	Get      *RelationAction `yaml:"get,omitempty"          json:"get,omitempty"`
-	Create   *RelationAction `yaml:"create,omitempty"       json:"create,omitempty"`
-	Update   *RelationAction `yaml:"update,omitempty"       json:"update,omitempty"`
-	Delete   *RelationAction `yaml:"delete,omitempty"       json:"delete,omitempty"`
+	RestName   string          `yaml:"rest_name,omitempty"     json:"rest_name,omitempty"`
+	Get        *RelationAction `yaml:"get,omitempty"           json:"get,omitempty"`
+	Create     *RelationAction `yaml:"create,omitempty"        json:"create,omitempty"`
+	Update     *RelationAction `yaml:"update,omitempty"        json:"update,omitempty"`
+	Delete     *RelationAction `yaml:"delete,omitempty"        json:"delete,omitempty"`
+	Extensions map[string]any  `yaml:"extensions,omitempty"    json:"extensions,omitempty"`
 
 	currentSpecification Specification
 	remoteSpecification  Specification

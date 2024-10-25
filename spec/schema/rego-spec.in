@@ -156,7 +156,6 @@ __ATTRIBUTE__
             "required": [
                 "rest_name"
             ],
-
             "properties": {
                 "rest_name": {
                     "description": "rest_name used as a link to the related object",
@@ -173,6 +172,25 @@ __ATTRIBUTE__
                 },
                 "update": {
                     "$ref": "#/definitions/relationaction"
+                },
+                "extensions": {
+                    "description": "Opaque key value pairs that can be used by compilers.",
+                    "type": "object",
+                    "properties": {
+                        "openapi_path": {
+                            "$ref": "#/definitions/relation/extensions/openapipath"
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "extensions": {
+                "title": "Relation Extensions",
+                "description": "All known extension types for relations",
+                "openapipath": {
+                    "title": "OpenAPI Path Extension",
+                    "description": "Alternative path to use when generating the OpenAPI spec",
+                    "type": "string"
                 }
             }
         },
@@ -205,6 +223,49 @@ __ATTRIBUTE__
                 },
                 "parameters": {
                     "$ref": "#/definitions/parameters"
+                },
+                "extensions": {
+                    "description": "Opaque key value pairs that can be used by compilers.",
+                    "type": "object",
+                    "properties": {
+                        "openapi_response_map": {
+                            "$ref": "#/definitions/relationaction/extensions/openapiresponsemap"
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "extensions": {
+                "title": "Relation Action Extensions",
+                "description": "All known extension types for relation actions",
+                "openapiresponsemap": {
+                    "title": "OpenAPI Response Mapping",
+                    "description": "Use this map of HTTP status code to output format spec when generating OpenAPI spec",
+                    "type": "object",
+                    "patternProperties": {
+                        "^[1-5][0-9]{2}$": {
+                            "type": "object",
+                            "properties": {
+                                "spec": {
+                                    "title": "Type Spec Name or External Type",
+                                    "description": "Name of the type spec that this response maps to, or name of the external type mapping.",
+                                    "type": "string"
+                                },
+                                "is_array": {
+                                    "title": "Is Array Response",
+                                    "description": "Response type is an array of type spec",
+                                    "type": "boolean"
+                                },
+                                "description": {
+                                    "title": "Response Description",
+                                    "description": "Description of the response under that status code",
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["spec"]
+                        }
+                    },
+                    "additionalProperties": false
                 }
             }
         }
