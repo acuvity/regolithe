@@ -19,6 +19,7 @@ type RelationAction struct {
 	Deprecated          bool                 `yaml:"deprecated,omitempty"            json:"deprecated,omitempty"`
 	ParameterReferences []string             `yaml:"global_parameters,omitempty"     json:"global_parameters,omitempty"`
 	ParameterDefinition *ParameterDefinition `yaml:"parameters,omitempty"            json:"parameters,omitempty"`
+	Extensions          map[string]any       `yaml:"extensions,omitempty"            json:"extensions,omitempty"`
 }
 
 // Validate validates the relation action.
