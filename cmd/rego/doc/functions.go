@@ -66,7 +66,7 @@ func toc(specs []spec.Specification) string {
 			continue
 		}
 
-		fmt.Fprintln(
+		_, _ = fmt.Fprintln(
 			w,
 			fmt.Sprintf(
 				"| [%s](#%s) \t|\t %s \t|",

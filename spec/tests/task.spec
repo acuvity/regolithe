@@ -3,6 +3,7 @@ model:
   rest_name: task
   resource_name: tasks
   entity_name: Task
+  friendly_name: Task
   package: todo-list
   group: core
   description: Represent a task to do in a listd.
@@ -21,6 +22,7 @@ model:
 attributes:
   v1:
   - name: description
+    friendly_name: Description
     description: The description.
     type: string
     exposed: true
@@ -29,6 +31,7 @@ attributes:
     orderable: true
 
   - name: name
+    friendly_name: Name
     description: The name.
     type: string
     exposed: true
@@ -43,7 +46,18 @@ attributes:
     - $nospace
     - $nocap
 
+  - name: secret
+    friendly_name: Secret
+    description: This attribute is secret.
+    type: string
+    exposed: true
+    stored: true
+    filterable: true
+    orderable: true
+    secret: true
+
   - name: status
+    friendly_name: Status
     description: The status of the task.
     type: enum
     exposed: true

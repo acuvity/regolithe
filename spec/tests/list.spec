@@ -3,6 +3,7 @@ model:
   rest_name: list
   resource_name: lists
   entity_name: List
+  friendly_name: List
   package: todo-list
   group: core
   description: Represent a a list of task to do.
@@ -57,6 +58,7 @@ model:
 attributes:
   v1:
   - name: creationOnly
+    friendly_name: CreationOnly
     description: This attribute is creation only.
     type: string
     exposed: true
@@ -66,6 +68,7 @@ attributes:
     orderable: true
 
   - name: date
+    friendly_name: Date
     description: The date.
     type: time
     exposed: true
@@ -74,6 +77,7 @@ attributes:
     orderable: true
 
   - name: description
+    friendly_name: Description
     description: The description.
     type: string
     exposed: true
@@ -82,6 +86,7 @@ attributes:
     orderable: true
 
   - name: name
+    friendly_name: Name
     description: The name.
     type: string
     exposed: true
@@ -94,6 +99,7 @@ attributes:
     orderable: true
 
   - name: readOnly
+    friendly_name: ReadOnly
     description: This attribute is readonly.
     type: string
     exposed: true
@@ -102,7 +108,39 @@ attributes:
     filterable: true
     orderable: true
 
+  - name: ref
+    friendly_name: Ref
+    description: This attribute is a ref to a single object.
+    type: ref
+    subtype: task
+    stored: true
+    filterable: true
+    orderable: true
+    extensions:
+      refMode: pointer
+
+  - name: refList
+    friendly_name: RefList
+    description: This attribute is a ref to a objects.
+    type: refList
+    subtype: task
+    stored: true
+    filterable: true
+    orderable: true
+
+  - name: refMap
+    friendly_name: RefMap
+    description: This attribute is a ref map to a objects.
+    type: refMap
+    subtype: task
+    stored: true
+    filterable: true
+    orderable: true
+    extensions:
+      refMode: pointer
+
   - name: secret
+    friendly_name: Secret
     description: This attribute is secret.
     type: string
     exposed: true
@@ -112,6 +150,7 @@ attributes:
     secret: true
 
   - name: slice
+    friendly_name: Slice
     description: this is a slice.
     type: list
     exposed: true
@@ -121,6 +160,7 @@ attributes:
     orderable: true
 
   - name: unexposed
+    friendly_name: Unexposed
     description: This attribute is not exposed.
     type: string
     stored: true
