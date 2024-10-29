@@ -99,8 +99,17 @@
                     "type": "string"
                 },
                 "extensions": {
-                    "description": "Opaque key value pairs that can be used by compilers.",
-                    "type": "object"
+                    "description": "Opaque key value pairs that can be used by compilers. Known extensions will be listed but not required properties. Any additional properties are possible.",
+                    "type": "object",
+                    "properties": {
+                        "openapi_path": {
+                            "$ref": "#/definitions/model/extensions/openapipath"
+                        },
+                        "openapi_component_registry": {
+                            "$ref": "#/definitions/model/extensions/openapicomponentregistry"
+                        }
+                    },
+                    "additionalProperties": true
                 },
                 "get": {
                     "$ref": "#/definitions/relationaction"
@@ -139,6 +148,24 @@
                 "detached": {
                     "description": "If true, indicates the compiler that this object is detached from the api",
                     "type": "boolean"
+                }
+            },
+            "extensions": {
+                "title": "Model Extensions",
+                "description": "All known extension types for models",
+                "openapipath": {
+                    "title": "OpenAPI Path Extension",
+                    "description": "Alternative path to use when generating the OpenAPI spec",
+                    "type": "string"
+                },
+                "openapicomponentregistry": {
+                    "title": "OpenAPI Component Registry",
+                    "description": "Allows to register external types within the components of the generated OpenAPI spec which will be referenced instead of embedded in generated response return types",
+                    "additionalProperties": false,
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -445,7 +472,7 @@
                     "$ref": "#/definitions/relationaction"
                 },
                 "extensions": {
-                    "description": "Opaque key value pairs that can be used by compilers.",
+                    "description": "Opaque key value pairs that can be used by compilers. Known extensions will be listed but not required properties. Any additional properties are possible.",
                     "type": "object",
                     "properties": {
                         "openapi_path": {
@@ -496,7 +523,7 @@
                     "$ref": "#/definitions/parameters"
                 },
                 "extensions": {
-                    "description": "Opaque key value pairs that can be used by compilers.",
+                    "description": "Opaque key value pairs that can be used by compilers. Known extensions will be listed but not required properties. Any additional properties are possible.",
                     "type": "object",
                     "properties": {
                         "openapi_response_map": {
