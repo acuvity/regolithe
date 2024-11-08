@@ -37,6 +37,30 @@
                 "import": {
                     "description": "Eventual additional import or package that provides the validation function.",
                     "type": "string"
+                },
+                "extensions": {
+                    "description": "Opaque key value pairs that can be used by compilers. Known extensions will be listed but not required properties. Any additional properties are possible.",
+                    "type": "object",
+                    "properties": {
+                        "openapi_response_map": {
+                            "$ref": "#/definitions/mapping/extensions"
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "extensions": {
+                "title": "Mapping Extensions",
+                "description": "All known extension types for validation mappings",
+                "pythonfieldmethods": {
+                    "title": "Python field methods",
+                    "description": "Define additional methods that will be added to resulting classes when this validator acts on a model attribute.",
+                    "type": "string"
+                },
+                "pythonmodelmethods": {
+                    "title": "Python model methods",
+                    "description": "Define additional methods that will be added to resulting classes when this validator acts on a model as a whole.",
+                    "type": "string"
                 }
             }
         }

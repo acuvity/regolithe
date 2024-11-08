@@ -41,6 +41,25 @@
                 "import": {
                     "description": "Eventual additional import or package that provides the type.",
                     "type": "string"
+                },
+                "extensions": {
+                    "description": "Opaque key value pairs that can be used by compilers. Known extensions will be listed but not required properties. Any additional properties are possible.",
+                    "type": "object",
+                    "properties": {
+                        "openapi_response_map": {
+                            "$ref": "#/definitions/mapping/extensions"
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "extensions": {
+                "title": "Mapping Extensions",
+                "description": "All known extension types for type mappings",
+                "pythonmethods": {
+                    "title": "Python methods",
+                    "description": "Define additional methods that will be added to resulting classes",
+                    "type": "string"
                 }
             }
         }

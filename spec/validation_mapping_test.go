@@ -48,6 +48,16 @@ func TestValidationMapping_LoadValidationMapping(t *testing.T) {
 						Name: "noCap",
 					},
 				},
+				"$request": map[string]*ValidationMap{
+					"test": {
+						Name:   "request_validator",
+						Import: "from pydantic import field_validator, model_validator",
+						Extensions: map[string]interface{}{
+							"pythonfieldmethods": "@field_validator(\"request\")\ndef __request_field_validator(cls, req: str) -> str:\n  return \"string\"",
+							"pythonmodelmethods": "@model_validator(mode='after')\ndef additional_validation_check(self) -> 'Request':\n  return self",
+						},
+					},
+				},
 			})
 		})
 	})
@@ -88,6 +98,24 @@ func TestValidationMapping_Mapping(t *testing.T) {
 			Convey("Then the mapping be correct", func() {
 				So(m.Name, ShouldEqual, "noCap")
 				So(m.Import, ShouldEqual, "")
+			})
+		})
+
+		Convey("When I call Mapping on $request for mode test", func() {
+
+			m, err := tm.Mapping("test", "$request")
+
+			Convey("Then err should be nil", func() {
+				So(err, ShouldBeNil)
+			})
+
+			Convey("Then the mapping be correct", func() {
+				So(m.Name, ShouldEqual, "request_validator")
+				So(m.Import, ShouldEqual, "from pydantic import field_validator, model_validator")
+				So(m.Extensions, ShouldResemble, map[string]interface{}{
+					"pythonfieldmethods": "@field_validator(\"request\")\ndef __request_field_validator(cls, req: str) -> str:\n  return \"string\"",
+					"pythonmodelmethods": "@model_validator(mode='after')\ndef additional_validation_check(self) -> 'Request':\n  return self",
+				})
 			})
 		})
 	})

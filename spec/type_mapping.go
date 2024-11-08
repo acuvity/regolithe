@@ -25,10 +25,11 @@ import (
 
 // A TypeMap represent a single Type Map.
 type TypeMap struct {
-	Type        string `yaml:"type,omitempty"           json:"type,omitempty"`
-	Initializer string `yaml:"init,omitempty"           json:"init,omitempty"`
-	Import      string `yaml:"import,omitempty"         json:"import,omitempty"`
-	Description string `yaml:"description,omitempty"    json:"description,omitempty"`
+	Type        string         `yaml:"type,omitempty"           json:"type,omitempty"`
+	Initializer string         `yaml:"init,omitempty"           json:"init,omitempty"`
+	Import      string         `yaml:"import,omitempty"         json:"import,omitempty"`
+	Description string         `yaml:"description,omitempty"    json:"description,omitempty"`
+	Extensions  map[string]any `yaml:"extensions,omitempty"     json:"extensions,omitempty"`
 }
 
 // TypeMapping holds the mapping of the external types.
@@ -66,6 +67,21 @@ func (t TypeMapping) Read(reader io.Reader, validate bool) (err error) {
 
 	if err = decoder.Decode(&t); err != nil {
 		return err
+	}
+
+	for _, tmm := range t {
+		for _, tm := range tmm {
+			if tm == nil {
+				continue
+			}
+			if tm.Extensions == nil {
+				continue
+			}
+			for kext, ext := range tm.Extensions {
+				tm.Extensions[kext] = massageYAML(ext)
+			}
+
+		}
 	}
 
 	if validate {
