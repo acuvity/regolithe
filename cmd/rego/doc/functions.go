@@ -381,14 +381,20 @@ func makeExample(s spec.Specification, version string) string {
 		}
 	}
 
-	d, err := json.MarshalIndent(data, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-
 	if len(data) == 0 {
 		return ""
 	}
 
-	return strings.Replace(string(d), "\n", `\n`, -1)
+	buf := &bytes.Buffer{}
+	enc := json.NewEncoder(buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+
+	if err := enc.Encode(data); err != nil {
+		panic(err)
+	}
+
+	b := bytes.TrimSpace(buf.Bytes())
+
+	return strings.Replace(string(b), "\n", `\n`, -1)
 }
