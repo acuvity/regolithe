@@ -478,7 +478,7 @@ func (s *specification) AttributeVersions() []string {
 // LatestAttributesVersion returns the latest version
 func (s *specification) LatestAttributesVersion() string {
 
-	var max int
+	var max int // nolint: revive
 	var latest string
 
 	for v := range s.RawAttributes {

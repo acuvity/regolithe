@@ -24,7 +24,7 @@ import (
 	"golang.org/x/text/language"
 )
 
-func shortString(s string, max int) string {
+func shortString(s string, max int) string { // nolint: revive
 	s = strings.Split(s, "\n")[0]
 	if len(s) < max {
 		return s
