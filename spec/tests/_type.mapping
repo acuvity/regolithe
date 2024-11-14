@@ -17,7 +17,7 @@ toto:
     import: github.com/toto/toto
 
 yawn:
-  elemental:
+  other:
     type: '[]byte'
     init: '[]byte{}'
   test:

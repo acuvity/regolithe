@@ -52,7 +52,7 @@ func TestTypeMapping_LoadTypeMapping(t *testing.T) {
 					},
 				},
 				"yawn": map[string]*TypeMap{
-					"elemental": {
+					"other": {
 						Type:        "[]byte",
 						Initializer: "[]byte{}",
 					},
