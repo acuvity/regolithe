@@ -478,7 +478,7 @@ func (s *specification) AttributeVersions() []string {
 // LatestAttributesVersion returns the latest version
 func (s *specification) LatestAttributesVersion() string {
 
-	var max int // nolint: revive
+	var maxLen int
 	var latest string
 
 	for v := range s.RawAttributes {
@@ -488,7 +488,7 @@ func (s *specification) LatestAttributesVersion() string {
 			panic(fmt.Sprintf("Invalid version '%s'", v))
 		}
 
-		if vi >= max {
+		if vi >= maxLen {
 			latest = v
 		}
 	}
