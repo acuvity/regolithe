@@ -15,3 +15,18 @@ toto:
     type: Toto
     init: Toto{}
     import: github.com/toto/toto
+
+yawn:
+  other:
+    type: '[]byte'
+    init: '[]byte{}'
+  test:
+    type: 'bytes'
+    init: 'b""'
+    extensions:
+      pythonmethods: |-
+        def __method_to_call(self) -> string:
+          return "string"
+      ignore_me_here:
+        and_here:
+          here_as_well: "the end"

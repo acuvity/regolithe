@@ -24,8 +24,9 @@ import (
 
 // A ValidationMap represent a single ValidationMap.
 type ValidationMap struct {
-	Name   string `yaml:"name,omitempty"           json:"name,omitempty"`
-	Import string `yaml:"import,omitempty"         json:"import,omitempty"`
+	Name       string         `yaml:"name,omitempty"           json:"name,omitempty"`
+	Import     string         `yaml:"import,omitempty"         json:"import,omitempty"`
+	Extensions map[string]any `yaml:"extensions,omitempty"     json:"extensions,omitempty"`
 }
 
 // ValidationMapping holds the mapping of the validation function.
@@ -63,6 +64,20 @@ func (v ValidationMapping) Read(reader io.Reader, validate bool) (err error) {
 
 	if err = decoder.Decode(&v); err != nil {
 		return err
+	}
+
+	for _, vmm := range v {
+		for _, vm := range vmm {
+			if vm == nil {
+				continue
+			}
+			if vm.Extensions == nil {
+				continue
+			}
+			for kext, ext := range vm.Extensions {
+				vm.Extensions[kext] = massageYAML(ext)
+			}
+		}
 	}
 
 	if validate {

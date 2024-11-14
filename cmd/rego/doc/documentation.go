@@ -24,12 +24,12 @@ import (
 	"golang.org/x/text/language"
 )
 
-func shortString(s string, max int) string {
+func shortString(s string, maxLen int) string {
 	s = strings.Split(s, "\n")[0]
-	if len(s) < max {
+	if len(s) < maxLen {
 		return s
 	}
-	return s[:max] + "..."
+	return s[:maxLen] + "..."
 }
 
 var functions = template.FuncMap{

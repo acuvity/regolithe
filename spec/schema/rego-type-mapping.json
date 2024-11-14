@@ -41,6 +41,11 @@
                 "import": {
                     "description": "Eventual additional import or package that provides the type.",
                     "type": "string"
+                },
+                "extensions": {
+                    "description": "Opaque key value pairs that can be used by compilers. Known extensions will be listed but not required properties. Any additional properties are possible.",
+                    "type": "object",
+                    "additionalProperties": true
                 }
             }
         }

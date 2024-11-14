@@ -51,6 +51,24 @@ func TestTypeMapping_LoadTypeMapping(t *testing.T) {
 						Initializer: "new Object()",
 					},
 				},
+				"yawn": map[string]*TypeMap{
+					"other": {
+						Type:        "[]byte",
+						Initializer: "[]byte{}",
+					},
+					"test": {
+						Type:        "bytes",
+						Initializer: `b""`,
+						Extensions: map[string]interface{}{
+							"pythonmethods": "def __method_to_call(self) -> string:\n  return \"string\"",
+							"ignore_me_here": map[string]interface{}{
+								"and_here": map[string]interface{}{
+									"here_as_well": "the end",
+								},
+							},
+						},
+					},
+				},
 			})
 		})
 	})
@@ -113,10 +131,11 @@ func TestTypeMapping_All(t *testing.T) {
 			m := tm.All("test")
 
 			Convey("Then the mapping be correct", func() {
-				So(len(m), ShouldEqual, 3)
+				So(len(m), ShouldEqual, 4)
 				So(m[0].Type, ShouldEqual, "Toto")
 				So(m[1].Type, ShouldEqual, "[]int")
-				So(m[2].Type, ShouldEqual, "map[string]string")
+				So(m[2].Type, ShouldEqual, "bytes")
+				So(m[3].Type, ShouldEqual, "map[string]string")
 			})
 		})
 	})
