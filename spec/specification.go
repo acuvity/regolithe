@@ -115,6 +115,14 @@ func (s *specification) Read(reader io.Reader, validate bool) (err error) {
 		return fmt.Errorf("unable to decode spec yaml: %s", err)
 	}
 
+	if s.RawModel != nil {
+		if s.RawModel.Extensions != nil {
+			for k, v := range s.RawModel.Extensions {
+				s.RawModel.Extensions[k] = massageYAML(v)
+			}
+		}
+	}
+
 	for _, attrs := range s.RawAttributes {
 		for _, attr := range attrs {
 			if attr.ExampleValue != nil {
