@@ -118,6 +118,10 @@
                     "description": "The represented object is private.",
                     "type": "boolean"
                 },
+                "undocumented": {
+                    "description": "The represented object is undocumented.",
+                    "type": "boolean"
+                },
                 "resource_name": {
                     "description": "The plural version of the rest_name.",
                     "type": "string"

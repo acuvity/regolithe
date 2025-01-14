@@ -118,7 +118,7 @@ func writeMarkdownDoc(set spec.SpecificationSet) error {
 			}
 
 			_, ok := model.Extensions["forceDocumentation"]
-			if model.Private && !ok {
+			if (model.Private || model.Undocumented) && !ok {
 				continue
 			}
 
