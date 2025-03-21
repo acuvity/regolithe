@@ -84,7 +84,7 @@
     }
     {{- end }}
     },
-    "additionalProperties": true,
+    "additionalProperties": false,
     "required": [
         {{- with .Spec.ExposedAttributes $latestVersion -}}
         {{- $first := true -}}
