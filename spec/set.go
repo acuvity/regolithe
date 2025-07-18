@@ -13,9 +13,11 @@ package spec
 
 import (
 	"fmt"
+	iofs "io/fs"
 	"log"
 	"os"
 	"path"
+	"path/filepath"
 	"sort"
 	"strings"
 
@@ -161,20 +163,27 @@ func LoadSpecificationSet(
 		specs: map[string]Specification{},
 	}
 
-	filesInfo, err := os.ReadDir(dirname)
+	entries := []string{}
+	err := filepath.WalkDir(dirname, func(path string, d iofs.DirEntry, err error) error {
+		if !d.IsDir() {
+			entries = append(entries, strings.TrimPrefix(strings.TrimPrefix(path, dirname), "/"))
+		}
+
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}
 
 	baseSpecs := map[string]Specification{}
 
-	for _, info := range filesInfo {
+	for _, p := range entries {
 
-		switch info.Name() {
+		switch p {
 
 		case "regolithe.ini":
 
-			set.configuration, err = LoadConfig(path.Join(dirname, info.Name()))
+			set.configuration, err = LoadConfig(path.Join(dirname, p))
 			if err != nil {
 				return nil, err
 			}
@@ -183,54 +192,55 @@ func LoadSpecificationSet(
 
 		case "_type.mapping":
 
-			set.typeMap, err = LoadTypeMapping(path.Join(dirname, info.Name()))
+			set.typeMap, err = LoadTypeMapping(path.Join(dirname, p))
 			if err != nil {
 				return nil, err
 			}
 
 		case "_validation.mapping":
 
-			set.validationsMap, err = LoadValidationMapping(path.Join(dirname, info.Name()))
+			set.validationsMap, err = LoadValidationMapping(path.Join(dirname, p))
 			if err != nil {
 				return nil, err
 			}
 
 		case "_parameter.mapping":
 
-			set.parametersMap, err = LoadGlobalParameters(path.Join(dirname, info.Name()))
+			set.parametersMap, err = LoadGlobalParameters(path.Join(dirname, p))
 			if err != nil {
 				return nil, err
 			}
 
 		case "_api.info":
-			set.apiInfo, err = LoadAPIInfo(path.Join(dirname, info.Name()))
+			set.apiInfo, err = LoadAPIInfo(path.Join(dirname, p))
 			if err != nil {
 				return nil, err
 			}
 
 		default:
 
-			if path.Ext(info.Name()) != ".spec" && path.Ext(info.Name()) != ".abs" {
+			if path.Ext(p) != ".spec" && path.Ext(p) != ".abs" {
 				continue
 			}
 
 			targetMap := set.specs
 
-			if path.Ext(info.Name()) == ".abs" {
+			if path.Ext(p) == ".abs" {
 				targetMap = baseSpecs
 			}
 
-			baseName := strings.Replace(strings.Replace(info.Name(), ".spec", "", 1), ".abs", "", 1)
-			baseName = strings.TrimPrefix(baseName, "+")
+			baseName := strings.Replace(strings.Replace(p, ".spec", "", 1), ".abs", "", 1)
+			baseName = strings.ReplaceAll(baseName, "+", "")
+			baseName = path.Base(baseName)
 
-			targetMap[baseName], err = LoadSpecification(path.Join(dirname, info.Name()), false)
+			targetMap[baseName], err = LoadSpecification(path.Join(dirname, p), false)
 			if err != nil {
 				return nil, err
 			}
 
 			if targetMap[baseName].Model() != nil &&
 				targetMap[baseName].Model().RestName != baseName {
-				return nil, fmt.Errorf("%s: declared rest_name '%s' must be identical to filename without extension", info.Name(), targetMap[baseName].Model().RestName)
+				return nil, fmt.Errorf("%s: declared rest_name '%s' must be identical to filename without extension", p, targetMap[baseName].Model().RestName)
 			}
 		}
 	}
