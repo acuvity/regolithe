@@ -164,9 +164,9 @@ func LoadSpecificationSet(
 	}
 
 	entries := []string{}
-	err := filepath.WalkDir(dirname, func(path string, d iofs.DirEntry, err error) error {
+	err := filepath.WalkDir(dirname, func(p string, d iofs.DirEntry, err error) error {
 		if !d.IsDir() {
-			entries = append(entries, strings.TrimPrefix(strings.TrimPrefix(path, dirname), "/"))
+			entries = append(entries, p)
 		}
 
 		return nil
@@ -179,11 +179,11 @@ func LoadSpecificationSet(
 
 	for _, p := range entries {
 
-		switch p {
+		switch path.Base(p) {
 
 		case "regolithe.ini":
 
-			set.configuration, err = LoadConfig(path.Join(dirname, p))
+			set.configuration, err = LoadConfig(p)
 			if err != nil {
 				return nil, err
 			}
@@ -192,27 +192,27 @@ func LoadSpecificationSet(
 
 		case "_type.mapping":
 
-			set.typeMap, err = LoadTypeMapping(path.Join(dirname, p))
+			set.typeMap, err = LoadTypeMapping(p)
 			if err != nil {
 				return nil, err
 			}
 
 		case "_validation.mapping":
 
-			set.validationsMap, err = LoadValidationMapping(path.Join(dirname, p))
+			set.validationsMap, err = LoadValidationMapping(p)
 			if err != nil {
 				return nil, err
 			}
 
 		case "_parameter.mapping":
 
-			set.parametersMap, err = LoadGlobalParameters(path.Join(dirname, p))
+			set.parametersMap, err = LoadGlobalParameters(p)
 			if err != nil {
 				return nil, err
 			}
 
 		case "_api.info":
-			set.apiInfo, err = LoadAPIInfo(path.Join(dirname, p))
+			set.apiInfo, err = LoadAPIInfo(p)
 			if err != nil {
 				return nil, err
 			}
@@ -233,7 +233,7 @@ func LoadSpecificationSet(
 			baseName = strings.ReplaceAll(baseName, "+", "")
 			baseName = path.Base(baseName)
 
-			targetMap[baseName], err = LoadSpecification(path.Join(dirname, p), false)
+			targetMap[baseName], err = LoadSpecification(p, false)
 			if err != nil {
 				return nil, err
 			}
