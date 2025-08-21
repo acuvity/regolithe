@@ -13,6 +13,7 @@ package spec
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"os"
 	"sort"
@@ -55,7 +56,7 @@ func LoadGlobalParameters(path string) (ParameterMapping, error) {
 	pm := ParameterMapping{}
 
 	if err = pm.Read(file, true); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to read global parameters from '%s': %w", path, err)
 	}
 
 	return pm, nil

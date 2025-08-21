@@ -49,7 +49,7 @@ func TestInfo_LoadAPIInfo(t *testing.T) {
 
 		Convey("Then err should be nil", func() {
 			So(err, ShouldNotBeNil)
-			So(err.Error(), ShouldEqual, "yaml: line 4: did not find expected ',' or '}'")
+			So(err.Error(), ShouldEqual, "unable to decode APIInfo from './tests/broken/_api.info.bad': yaml: line 4: did not find expected ',' or '}'")
 		})
 	})
 }

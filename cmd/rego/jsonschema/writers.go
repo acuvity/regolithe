@@ -146,12 +146,12 @@ func writeModel(set spec.SpecificationSet, outFolder string, publicMode bool) er
 
 		data := map[string]any{}
 		if err := json.Unmarshal(buf.Bytes(), &data); err != nil {
-			return fmt.Errorf("unable to unmarshal model code: %w", err)
+			return fmt.Errorf("unable to unmarshal model code for '%s': %w", s.Model().RestName, err)
 		}
 
 		out, err := json.MarshalIndent(data, "", "  ")
 		if err != nil {
-			return fmt.Errorf("unable to marshal model code: %w", err)
+			return fmt.Errorf("unable to marshal model code for '%s': %w", s.Model().RestName, err)
 		}
 
 		if err := writeFile(path.Join(outFolder, s.Model().RestName+".json"), out); err != nil {

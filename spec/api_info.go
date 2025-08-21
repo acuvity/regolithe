@@ -13,6 +13,7 @@ package spec
 
 import (
 	"embed"
+	"fmt"
 	"os"
 
 	"github.com/xeipuuv/gojsonschema"
@@ -50,7 +51,7 @@ func LoadAPIInfo(path string) (*APIInfo, error) {
 	decoder.SetStrict(true)
 
 	if err = decoder.Decode(apiinfo); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to decode APIInfo from '%s': %w", path, err)
 	}
 
 	if err := apiinfo.Validate(); err != nil {

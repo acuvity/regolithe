@@ -57,44 +57,44 @@ func main() {
 				s := spec.NewSpecification()
 
 				if err := s.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read spec: %w", err)
+					return fmt.Errorf("unable to format: unable to read spec from stdin: %w", err)
 				}
 
 				if err := s.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write spec: %w", err)
+					return fmt.Errorf("unable to format: unable to write spec to stdout: %w", err)
 				}
 
 			case "typemapping":
 				tm := spec.NewTypeMapping()
 
 				if err := tm.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read typemapping: %w", err)
+					return fmt.Errorf("unable to format: unable to read typemapping from stdin: %w", err)
 				}
 
 				if err := tm.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write typemapping: %w", err)
+					return fmt.Errorf("unable to format: unable to write typemapping to stdout: %w", err)
 				}
 
 			case "validationmapping":
 				vm := spec.NewValidationMapping()
 
 				if err := vm.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read validationmapping: %w", err)
+					return fmt.Errorf("unable to format: unable to read validationmapping from stdin: %w", err)
 				}
 
 				if err := vm.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write validationmapping: %w", err)
+					return fmt.Errorf("unable to format: unable to write validationmapping to stdout: %w", err)
 				}
 
 			case "parametermapping":
 				pm := spec.NewParameterMapping()
 
 				if err := pm.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read parametermapping: %w", err)
+					return fmt.Errorf("unable to format: unable to read parametermapping from stdin: %w", err)
 				}
 
 				if err := pm.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write parametermapping: %w", err)
+					return fmt.Errorf("unable to format: unable to write parametermapping to stdout: %w", err)
 				}
 			}
 

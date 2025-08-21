@@ -72,7 +72,7 @@ func LoadSpecification(specPath string, validate bool) (Specification, error) {
 	spec := &specification{}
 	spec.path = specPath
 	if err = spec.Read(file, validate); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to read specification from '%s': %w", specPath, err)
 	}
 
 	return spec, nil

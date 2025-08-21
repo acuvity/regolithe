@@ -53,7 +53,7 @@ func LoadTypeMapping(path string) (TypeMapping, error) {
 	tm := NewTypeMapping()
 
 	if err = tm.Read(file, true); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to read type mapping from '%s': %w", path, err)
 	}
 
 	return tm, nil

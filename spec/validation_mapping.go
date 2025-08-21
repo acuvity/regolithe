@@ -50,7 +50,7 @@ func LoadValidationMapping(path string) (ValidationMapping, error) {
 	vm := NewValidationMapping()
 
 	if err = vm.Read(file, true); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to read validation mapping from '%s': %w", path, err)
 	}
 
 	return vm, nil
