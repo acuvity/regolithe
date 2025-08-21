@@ -99,7 +99,7 @@ func toJSType(stringType string, required bool) string {
 
 func convertRegexp(str string, required bool) string {
 
-	escaped := strings.Replace(strings.Replace(str, `\`, `\\`, -1), `"`, `\"`, -1)
+	escaped := strings.ReplaceAll(strings.ReplaceAll(str, `\`, `\\`), `"`, `\"`)
 	if required {
 		return escaped
 	}

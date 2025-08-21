@@ -57,44 +57,44 @@ func main() {
 				s := spec.NewSpecification()
 
 				if err := s.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read spec: %s", err)
+					return fmt.Errorf("unable to format: unable to read spec: %w", err)
 				}
 
 				if err := s.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write spec: %s", err)
+					return fmt.Errorf("unable to format: unable to write spec: %w", err)
 				}
 
 			case "typemapping":
 				tm := spec.NewTypeMapping()
 
 				if err := tm.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read typemapping: %s", err)
+					return fmt.Errorf("unable to format: unable to read typemapping: %w", err)
 				}
 
 				if err := tm.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write typemapping: %s", err)
+					return fmt.Errorf("unable to format: unable to write typemapping: %w", err)
 				}
 
 			case "validationmapping":
 				vm := spec.NewValidationMapping()
 
 				if err := vm.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read validationmapping: %s", err)
+					return fmt.Errorf("unable to format: unable to read validationmapping: %w", err)
 				}
 
 				if err := vm.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write validationmapping: %s", err)
+					return fmt.Errorf("unable to format: unable to write validationmapping: %w", err)
 				}
 
 			case "parametermapping":
 				pm := spec.NewParameterMapping()
 
 				if err := pm.Read(os.Stdin, true); err != nil {
-					return fmt.Errorf("unable to format: unable to read parametermapping: %s", err)
+					return fmt.Errorf("unable to format: unable to read parametermapping: %w", err)
 				}
 
 				if err := pm.Write(os.Stdout); err != nil {
-					return fmt.Errorf("unable to format: unable to write parametermapping: %s", err)
+					return fmt.Errorf("unable to format: unable to write parametermapping: %w", err)
 				}
 			}
 
@@ -120,11 +120,11 @@ func main() {
 				viper.GetString("category"),
 			)
 			if err != nil {
-				return fmt.Errorf("unable to load specification set: %s", err)
+				return fmt.Errorf("unable to load specification set: %w", err)
 			}
 
 			if err := doc.Write(s, viper.GetString("format")); err != nil {
-				return fmt.Errorf("unable to write specification set: %s", err)
+				return fmt.Errorf("unable to write specification set: %w", err)
 			}
 
 			return nil

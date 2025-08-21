@@ -112,7 +112,7 @@ func (s *specification) Read(reader io.Reader, validate bool) (err error) {
 	decoder.SetStrict(true)
 
 	if err = decoder.Decode(s); err != nil {
-		return fmt.Errorf("unable to decode spec yaml: %s", err)
+		return fmt.Errorf("unable to decode spec yaml: %w", err)
 	}
 
 	if s.RawModel != nil {
@@ -171,11 +171,11 @@ func (s *specification) Read(reader io.Reader, validate bool) (err error) {
 	}
 
 	if err = s.buildAttributesMapping(); err != nil {
-		return fmt.Errorf("unable to build attributes mapping: %s", err)
+		return fmt.Errorf("unable to build attributes mapping: %w", err)
 	}
 
 	if err = s.buildRelationsMapping(); err != nil {
-		return fmt.Errorf("unable to build relations mapping: %s", err)
+		return fmt.Errorf("unable to build relations mapping: %w", err)
 	}
 
 	if s.RawModel != nil {
@@ -393,7 +393,7 @@ func (s *specification) Validate() []error {
 		} else if s.path != "" {
 			name = s.path
 		}
-		return []error{fmt.Errorf("unable to validate specification '%s': %s", name, err)}
+		return []error{fmt.Errorf("unable to validate specification '%s': %w", name, err)}
 	}
 
 	var errs []error
@@ -579,9 +579,7 @@ func (s *specification) ApplyBaseSpecifications(specs ...Specification) error {
 
 		if !s.Model().Detached {
 			if len(s.RawIndexes) != 1 || s.RawIndexes[0][0] != ":no-inherit" {
-				for _, indexes := range spec.RawIndexes {
-					s.RawIndexes = append(s.RawIndexes, indexes)
-				}
+				s.RawIndexes = append(s.RawIndexes, spec.RawIndexes...)
 			}
 		}
 

@@ -66,14 +66,12 @@ func toc(specs []spec.Specification) string {
 			continue
 		}
 
-		_, _ = fmt.Fprintln(
+		_, _ = fmt.Fprintf(
 			w,
-			fmt.Sprintf(
-				"| [%s](#%s) \t|\t %s \t|",
-				model.EntityName,
-				strings.ToLower(model.EntityName),
-				shortString(model.Description, 80),
-			),
+			"| [%s](#%s) \t|\t %s \t|\n",
+			model.EntityName,
+			strings.ToLower(model.EntityName),
+			shortString(model.Description, 80),
 		) // nolint: errcheck
 	}
 	_ = w.Flush() // nolint: errcheck
@@ -229,7 +227,7 @@ func operations(spec spec.Specification, relationships map[string]*spec.Relation
 		if i > 0 {
 			_, _ = buf.WriteString("\n")
 		}
-		_, _ = buf.WriteString(fmt.Sprintf("##### `%s %s`\n\n", r.method, r.url))
+		_, _ = fmt.Fprintf(buf, "##### `%s %s`\n\n", r.method, r.url)
 		_, _ = buf.WriteString(r.doc)
 
 		if r.params != nil {
@@ -240,7 +238,7 @@ func operations(spec spec.Specification, relationships map[string]*spec.Relation
 				if pd.Type == "enum" {
 					enumValues = "(" + strings.Join(pd.AllowedChoices, " | ") + ")"
 				}
-				_, _ = buf.WriteString(fmt.Sprintf("- `%s` (`%s%s`): %s\n", pd.Name, pd.Type, enumValues, strings.Replace(pd.Description, "\n", "", -1)))
+				_, _ = fmt.Fprintf(buf, "- `%s` (`%s%s`): %s\n", pd.Name, pd.Type, enumValues, strings.ReplaceAll(pd.Description, "\n", ""))
 			}
 
 			if r.params.Required != nil {
@@ -396,5 +394,5 @@ func makeExample(s spec.Specification, version string) string {
 
 	b := bytes.TrimSpace(buf.Bytes())
 
-	return strings.Replace(string(b), "\n", `\n`, -1)
+	return strings.ReplaceAll(string(b), "\n", `\n`)
 }

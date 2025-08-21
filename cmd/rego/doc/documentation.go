@@ -59,12 +59,12 @@ func writeMarkdownDoc(set spec.SpecificationSet) error {
 
 	tocData, err := templates.Get("toc-md.gotpl")
 	if err != nil {
-		return fmt.Errorf("cannot open toc template: %s", err)
+		return fmt.Errorf("cannot open toc template: %w", err)
 	}
 
 	specData, err := templates.Get("spec-md.gotpl")
 	if err != nil {
-		return fmt.Errorf("cannot open spec template: %s", err)
+		return fmt.Errorf("cannot open spec template: %w", err)
 	}
 
 	relationships := set.RelationshipsByRestName()
@@ -100,11 +100,11 @@ func writeMarkdownDoc(set spec.SpecificationSet) error {
 
 		tocTemplate, err := template.New("toc-" + g).Funcs(functions).Parse(string(tocData))
 		if err != nil {
-			return fmt.Errorf("cannot parse template: %s", err)
+			return fmt.Errorf("cannot parse template: %w", err)
 		}
 
 		if err := tocTemplate.Execute(buf, s); err != nil {
-			return fmt.Errorf("cannot execute template: %s", err)
+			return fmt.Errorf("cannot execute template: %w", err)
 		}
 
 		var initializedGroup bool
@@ -129,7 +129,7 @@ func writeMarkdownDoc(set spec.SpecificationSet) error {
 
 			temp, err := template.New(model.RestName).Funcs(functions).Parse(string(specData[:len(specData)-1]))
 			if err != nil {
-				return fmt.Errorf("cannot parse template: %s", err)
+				return fmt.Errorf("cannot parse template: %w", err)
 			}
 
 			buf := &bytes.Buffer{}
@@ -142,7 +142,7 @@ func writeMarkdownDoc(set spec.SpecificationSet) error {
 				Spec:          s,
 				Relationships: relationships,
 			}); err != nil {
-				return fmt.Errorf("cannot execute template: %s", err)
+				return fmt.Errorf("cannot execute template: %w", err)
 			}
 
 			out = out + r.ReplaceAllString(buf.String(), "\n\n")

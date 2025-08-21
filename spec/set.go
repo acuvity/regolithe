@@ -12,6 +12,7 @@
 package spec
 
 import (
+	"errors"
 	"fmt"
 	iofs "io/fs"
 	"log"
@@ -99,7 +100,7 @@ func LoadSpecificationSetFromGithub(
 	repo, err := cloneFunc(tmpFolder, ref)
 
 	if err != nil {
-		if err == plumbing.ErrReferenceNotFound {
+		if errors.Is(err, plumbing.ErrReferenceNotFound) {
 
 			log.Printf("failed to clone with refs/heads: ref=%s repo=%s path=%s err=%s", refName, repoURL, internalPath, err)
 
@@ -333,7 +334,7 @@ func LoadSpecificationSet(
 
 							m, err := set.validationsMap.Mapping(typeMappingName, validationName)
 							if err != nil {
-								return nil, fmt.Errorf("unable to apply validation mapping '%s' to attribute '%s': %s", validationName, attr.Name, err)
+								return nil, fmt.Errorf("unable to apply validation mapping '%s' to attribute '%s': %w", validationName, attr.Name, err)
 							}
 							if m == nil {
 								continue
