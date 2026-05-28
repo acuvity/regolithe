@@ -47,6 +47,7 @@ type Attribute struct {
 	FriendlyName        string         `yaml:"friendly_name,omitempty"          json:"friendly_name,omitempty"`
 	ExposedName         string         `yaml:"exposed_name,omitempty"           json:"exposed_name,omitempty"`
 	Description         string         `yaml:"description,omitempty"            json:"description,omitempty"`
+	ShortDescription    string         `yaml:"short_description,omitempty"      json:"short_description,omitempty"`
 	Type                AttributeType  `yaml:"type,omitempty"                   json:"type,omitempty"`
 	Exposed             bool           `yaml:"exposed,omitempty"                json:"exposed,omitempty"`
 	SubType             string         `yaml:"subtype,omitempty"                json:"subtype,omitempty"`
