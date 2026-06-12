@@ -546,6 +546,12 @@ func (s *specificationSet) Relationships() map[string]*Relationship {
 			if rel.Create != nil {
 				relationships[relatedModed.EntityName].Set("create", model.RestName, rel.Create)
 			}
+			if rel.Update != nil {
+				relationships[relatedModed.EntityName].Set("update", model.RestName, rel.Update)
+			}
+			if rel.Delete != nil {
+				relationships[relatedModed.EntityName].Set("delete", model.RestName, rel.Delete)
+			}
 		}
 	}
 
@@ -585,6 +591,14 @@ func (s *specificationSet) RelationshipsByRestName() map[string]*Relationship {
 
 			if rel.Create != nil {
 				relationships[rel.RestName].Set("create", model.RestName, rel.Create)
+			}
+
+			if rel.Update != nil {
+				relationships[rel.RestName].Set("update", model.RestName, rel.Update)
+			}
+
+			if rel.Delete != nil {
+				relationships[rel.RestName].Set("delete", model.RestName, rel.Delete)
 			}
 		}
 	}
@@ -626,6 +640,12 @@ func (s *specificationSet) RelationshipsByResourceName() map[string]*Relationshi
 			}
 			if rel.Create != nil {
 				relationships[childrenSpec.Model().ResourceName].Set("create", model.RestName, rel.Create)
+			}
+			if rel.Update != nil {
+				relationships[childrenSpec.Model().ResourceName].Set("update", model.RestName, rel.Update)
+			}
+			if rel.Delete != nil {
+				relationships[childrenSpec.Model().ResourceName].Set("delete", model.RestName, rel.Delete)
 			}
 
 		}
