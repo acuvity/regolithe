@@ -293,7 +293,7 @@ func TestSpecification_AttributeMap(t *testing.T) {
 		})
 
 		Convey("Then the attribute map should be correctly built", func() {
-			So(len(spec.Attributes("v1")), ShouldEqual, 4)
+			So(len(spec.Attributes("v1")), ShouldEqual, 5)
 			So(spec.Attribute("name", "v1").Name, ShouldEqual, "name")
 			So(spec.Attribute("description", "v1").Name, ShouldEqual, "description")
 			So(spec.Attribute("status", "v1").Name, ShouldEqual, "status")
@@ -466,7 +466,7 @@ func TestSpecification_LoadSpecification(t *testing.T) {
 		})
 
 		Convey("Then the number of attributes should be correct", func() {
-			So(len(spec.Attributes("v1")), ShouldEqual, 4)
+			So(len(spec.Attributes("v1")), ShouldEqual, 5)
 		})
 
 		Convey("Then the spec attribute description be correctly initialized", func() {
@@ -572,7 +572,7 @@ func TestSpecification_LoadSpecification(t *testing.T) {
 			})
 
 			Convey("Then the number of attributes should be correct", func() {
-				So(len(spec.Attributes("v1")), ShouldEqual, 7)
+				So(len(spec.Attributes("v1")), ShouldEqual, 8)
 			})
 
 			Convey("Then the additional attributes should have been applied", func() {

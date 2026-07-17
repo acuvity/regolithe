@@ -43,16 +43,17 @@ func TestSpec_LoadSpecificationDir(t *testing.T) {
 			So(err, ShouldBeNil)
 		})
 
-		Convey("Then the specification set should have 4 entries", func() {
-			So(set.Len(), ShouldEqual, 4)
+		Convey("Then the specification set should have 5 entries", func() {
+			So(set.Len(), ShouldEqual, 5)
 		})
 
 		Convey("Then calling Specifications should return the sorted list", func() {
 			ss := set.Specifications()
 			So(ss[0].Model().RestName, ShouldEqual, "list")
 			So(ss[1].Model().RestName, ShouldEqual, "root")
-			So(ss[2].Model().RestName, ShouldEqual, "task")
-			So(ss[3].Model().RestName, ShouldEqual, "user")
+			So(ss[2].Model().RestName, ShouldEqual, "subtask")
+			So(ss[3].Model().RestName, ShouldEqual, "task")
+			So(ss[4].Model().RestName, ShouldEqual, "user")
 		})
 
 		Convey("Then the relationships should be correct", func() {
@@ -785,7 +786,7 @@ func TestSpec_LoadSpecificationDir(t *testing.T) {
 		})
 
 		Convey("Then the specification set should be correct", func() {
-			So(len(set.Specification("task").Attributes("v1")), ShouldEqual, 7)
+			So(len(set.Specification("task").Attributes("v1")), ShouldEqual, 8)
 			So(len(set.Specification("root").Attributes("v1")), ShouldEqual, 0)
 			So(len(set.Specification("list").Attributes("v1")), ShouldEqual, 14)
 			So(len(set.Specification("user").Attributes("v1")), ShouldEqual, 7)

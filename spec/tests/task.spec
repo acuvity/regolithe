@@ -56,6 +56,16 @@ attributes:
     orderable: true
     secret: true
 
+  - name: subtask
+    friendly_name: Subtask
+    description: This is a nested ref.
+    type: ref
+    exposed: false
+    stored: true
+    subtype: subtask
+    extensions:
+      refMode: pointer
+
   - name: status
     friendly_name: Status
     description: The status of the task.
