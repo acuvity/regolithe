@@ -53,6 +53,8 @@ model:
         example_value: "true"
   extends:
   - '@base'
+  - '@importable'
+  - '@shardable'
 
 # Attributes
 attributes:
@@ -116,6 +118,7 @@ attributes:
     stored: true
     filterable: true
     orderable: true
+    exposed: true
     extensions:
       refMode: pointer
 
@@ -125,6 +128,7 @@ attributes:
     type: refList
     subtype: task
     stored: true
+    exposed: true
     filterable: true
     orderable: true
 
@@ -136,6 +140,7 @@ attributes:
     stored: true
     filterable: true
     orderable: true
+    exposed: true
     extensions:
       refMode: pointer
 

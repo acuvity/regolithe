@@ -65,6 +65,17 @@ attributes:
     subtype: subtask
     extensions:
       refMode: pointer
+  
+  - name: subtaskList
+    friendly_name: Subtasklist
+    description: This is a nested refList.
+    type: refList
+    exposed: true
+    stored: true
+    subtype: subtask
+    extensions:
+      noInit: true
+      refMode: nopointer
 
   - name: status
     friendly_name: Status

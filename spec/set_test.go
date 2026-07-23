@@ -786,10 +786,10 @@ func TestSpec_LoadSpecificationDir(t *testing.T) {
 		})
 
 		Convey("Then the specification set should be correct", func() {
-			So(len(set.Specification("task").Attributes("v1")), ShouldEqual, 8)
+			So(len(set.Specification("task").Attributes("v1")), ShouldEqual, 10)
 			So(len(set.Specification("root").Attributes("v1")), ShouldEqual, 0)
-			So(len(set.Specification("list").Attributes("v1")), ShouldEqual, 14)
-			So(len(set.Specification("user").Attributes("v1")), ShouldEqual, 7)
+			So(len(set.Specification("list").Attributes("v1")), ShouldEqual, 19)
+			So(len(set.Specification("user").Attributes("v1")), ShouldEqual, 8)
 		})
 
 		Convey("Then the API linking should be correct", func() {

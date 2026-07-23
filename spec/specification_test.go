@@ -293,7 +293,7 @@ func TestSpecification_AttributeMap(t *testing.T) {
 		})
 
 		Convey("Then the attribute map should be correctly built", func() {
-			So(len(spec.Attributes("v1")), ShouldEqual, 5)
+			So(len(spec.Attributes("v1")), ShouldEqual, 6)
 			So(spec.Attribute("name", "v1").Name, ShouldEqual, "name")
 			So(spec.Attribute("description", "v1").Name, ShouldEqual, "description")
 			So(spec.Attribute("status", "v1").Name, ShouldEqual, "status")
@@ -466,7 +466,7 @@ func TestSpecification_LoadSpecification(t *testing.T) {
 		})
 
 		Convey("Then the number of attributes should be correct", func() {
-			So(len(spec.Attributes("v1")), ShouldEqual, 5)
+			So(len(spec.Attributes("v1")), ShouldEqual, 6)
 		})
 
 		Convey("Then the spec attribute description be correctly initialized", func() {
@@ -572,7 +572,7 @@ func TestSpecification_LoadSpecification(t *testing.T) {
 			})
 
 			Convey("Then the number of attributes should be correct", func() {
-				So(len(spec.Attributes("v1")), ShouldEqual, 8)
+				So(len(spec.Attributes("v1")), ShouldEqual, 10)
 			})
 
 			Convey("Then the additional attributes should have been applied", func() {
@@ -891,6 +891,8 @@ model:
         example_value: "true"
   extends:
   - '@base'
+  - '@importable'
+  - '@shardable'
 
 # Attributes
 attributes:
@@ -950,6 +952,7 @@ attributes:
     friendly_name: Ref
     description: This attribute is a ref to a single object.
     type: ref
+    exposed: true
     subtype: task
     stored: true
     filterable: true
@@ -961,6 +964,7 @@ attributes:
     friendly_name: RefList
     description: This attribute is a ref to a objects.
     type: refList
+    exposed: true
     subtype: task
     stored: true
     filterable: true
@@ -970,6 +974,7 @@ attributes:
     friendly_name: RefMap
     description: This attribute is a ref map to a objects.
     type: refMap
+    exposed: true
     subtype: task
     stored: true
     filterable: true
